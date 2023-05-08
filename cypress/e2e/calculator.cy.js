@@ -19,4 +19,10 @@ describe("계산기 앱 테스트", () => {
   it("디스플레이에 기본적으로 숫자 0이 표시된다.", () => {
     cy.get("#total").should("have.text", 0);
   });
+
+  // know to unknown, 점진적으로 원하는 결과치에 다가가자
+  it("숫자 버튼을 클릭하면 display에 숫자가 표시된다.", () => {
+    cy.get(".digit").contains("1").click();
+    cy.get("#total").should("have.text", 1);
+  });
 });
