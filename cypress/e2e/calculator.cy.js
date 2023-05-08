@@ -10,6 +10,16 @@
 // 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
 // 계산 결과를 표현할 때 소수점 이하는 버림한다.
 
+const clickDigitButtons = (digits = []) => {
+  digits.forEach((digit) => {
+    cy.get(".digit").contains(digit).click();
+  });
+};
+
+const checkDisplayValue = (value) => {
+  cy.get("#total").should("have.text", value);
+};
+
 describe("계산기 앱 테스트", () => {
   // 그래서 우리는 연산의 결과가 보여지는 디스플레이에 연산 결과가 값이 잘 보여지는 지 테스트
   beforeEach("페이지 방문", () => {
@@ -17,18 +27,22 @@ describe("계산기 앱 테스트", () => {
   });
 
   it("디스플레이에 기본적으로 숫자 0이 표시된다.", () => {
-    cy.get("#total").should("have.text", 0);
+    checkDisplayValue(0);
   });
 
   // know to unknown, 점진적으로 원하는 결과치에 다가가자
   it("1개의 숫자 버튼을 클릭하면 display에 숫자가 표시된다.", () => {
-    cy.get(".digit").contains("1").click();
-    cy.get("#total").should("have.text", 1);
+    clickDigitButtons(["1"]);
+    checkDisplayValue(1);
   });
 
   it("2개의 숫자 버튼을 클릭하면 display에 숫자가 표시된다.", () => {
-    cy.get(".digit").contains("1").click();
-    cy.get(".digit").contains("2").click();
-    cy.get("#total").should("have.text", 12);
+    clickDigitButtons(["1", "2"]);
+    checkDisplayValue(12);
+  });
+
+  it("3개의 숫자 버튼을 클릭하면 display에 숫자가 표시된다.", () => {
+    clickDigitButtons(["1", "2", "3"]);
+    checkDisplayValue(123);
   });
 });
