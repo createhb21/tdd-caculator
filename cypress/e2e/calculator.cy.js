@@ -21,8 +21,14 @@ describe("계산기 앱 테스트", () => {
   });
 
   // know to unknown, 점진적으로 원하는 결과치에 다가가자
-  it("숫자 버튼을 클릭하면 display에 숫자가 표시된다.", () => {
+  it("1개의 숫자 버튼을 클릭하면 display에 숫자가 표시된다.", () => {
     cy.get(".digit").contains("1").click();
     cy.get("#total").should("have.text", 1);
+  });
+
+  it("2개의 숫자 버튼을 클릭하면 display에 숫자가 표시된다.", () => {
+    cy.get(".digit").contains("1").click();
+    cy.get(".digit").contains("2").click();
+    cy.get("#total").should("have.text", 12);
   });
 });
